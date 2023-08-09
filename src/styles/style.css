@@ -1,0 +1,85 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.mr-1{
+  margin-right: 10px;
+}
+
+.my-1{
+  margin: 10px 0;
+}
+
+.flex__end{
+  display: flex;
+  justify-content: flex-end;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #ccc;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #aaa;
+  font-weight: bold;
+}
+
+header{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  min-height: 60px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #333;
+}
+
+header .header__brand h1{
+  font-size: 28px;
+  font-weight: bold;
+}
+
+header .header__profile{
+  display: flex;
+  align-items: center;
+}
+
+header .header__profile .header__username{
+  margin-right: 10px;
+}
+
+header .header__profile .header__image{
+  height: 60px;
+}
+
+input, textarea{
+  margin: 0;
+}
+
+main{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  min-height: 85vh;
+  padding: 20px;
+}
+
+footer{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #333;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
