@@ -26,11 +26,10 @@ const convertDate = (date) => {
         const minute = jsDate.getMinutes()
 
         return [
-            [day, month, year].join("-"),
+            [day, month, year].join(" "),
             [hour, minute].join(":")
         ].join(" ")
     }catch(e){
-        console.log(e)
         return '-'
     }
 }

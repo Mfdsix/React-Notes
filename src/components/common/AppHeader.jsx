@@ -1,6 +1,6 @@
 import React from "react"
 
-function AppFooter(){
+function AppHeader(){
     return <header>
         <div className="header__brand">
             <h1>Puth's Diary</h1>
@@ -12,4 +12,4 @@ function AppFooter(){
     </header>
 }
 
-export default AppFooter
+export default AppHeader

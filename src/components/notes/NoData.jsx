@@ -1,6 +1,6 @@
 import React from "react"
 
-import '../styles/error.css'
+import '../../styles/error.css'
 
 function NoData({
     message = 'No Data'

@@ -23,7 +23,7 @@
     margin-top: 10px;
 }
 
-.note__list .note__item .note__delete{
+.note__list .note__item .note__action__detail{
     display: none;
     position: absolute;
     top: 0;
@@ -32,15 +32,26 @@
     left: 0;
     right: 0;
     background-color: rgba(255, 0, 0, 0.7);
-    color: #fff;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
 }
-.note__list .note__item .note__delete button{
+.note__list .note__item .note__action__detail a{
+    color: #fff;
+    text-decoration: none;
     font-size: 36px;
     font-weight: bold;
 }
-.note__list .note__item:hover .note__delete{
+.note__list .note__item:hover .note__action__detail{
     display: flex;
+}
+
+.badge__archived{
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: inline-block;
 }

@@ -1,4 +1,4 @@
-const getInitialData = () => ([
+let notes = [
   {
     id: 1,
     title: "Babel",
@@ -41,7 +41,46 @@ const getInitialData = () => ([
     createdAt: '2022-04-14T04:27:34.572Z',
     archived: false,
   },
-]);
+];
+
+const getNotes = () => {
+  return notes;
+}
+
+const getNoteById = (noteId) => {
+  return notes.find((note) => {
+    return note.id == noteId
+  });
+}
+
+const addNote = ({
+  title,
+  body
+}) => {
+  notes = [
+    {
+      id: +new Date(),
+      title,
+      body,
+      createdAt: new Date(),
+      archived: false,
+    },
+    ...notes
+  ]
+}
+
+const deleteNote = (id) => {
+  notes = notes.filter((note) => note.id !== id);
+}
+
+const toggleArchiveStatus = (id) => {
+  notes = notes.map((note) => {
+    return {
+      ...note,
+      archived: (note.id == id) ? !note.archived : note.archived
+    }
+  })
+}
 
 const showFormattedDate = (date) => {
   const options = {
@@ -53,4 +92,4 @@ const showFormattedDate = (date) => {
   return new Date(date).toLocaleDateString("id-ID", options)
 }
 
-export { getInitialData, showFormattedDate };
+export { getNotes, getNoteById, addNote, toggleArchiveStatus, deleteNote, showFormattedDate };
