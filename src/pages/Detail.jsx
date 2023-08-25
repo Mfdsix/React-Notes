@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import NoteDetail from "../components/notes/NoteDetail";
 import { deleteNote, getNoteById, toggleArchiveStatus } from "../data/notes";
+import PageNotFound from "./PageNotFound";
 
 export default function Detail() {
   const { id } = useParams();
@@ -31,6 +32,7 @@ export default function Detail() {
   return (
     <>
       { note && <NoteDetail onDelete={onDelete} onArchive={onArchive} note={note} /> }
+      { !note && <PageNotFound/> }
     </>
   );
 }

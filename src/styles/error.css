@@ -7,3 +7,13 @@
 .no__data img{
     height: 90px;
 }
+
+.error__wrap{
+    text-align: center;
+}
+
+.error__code{
+    font-size: 128px;
+    font-weight: bold;
+    color: #333;
+}

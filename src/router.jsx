@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Add from "./pages/Add";
 import Detail from "./pages/Detail";
+import PageNotFound from "./pages/PageNotFound";
 
 function Router() {
   return (
@@ -16,6 +17,8 @@ function Router() {
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<Add />} />
           <Route path="/:id" element={<Detail />} />
+
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
 
