@@ -1,20 +1,28 @@
-import React from 'react'
+import React from "react";
+import PropTypes from "prop-types";
 
-function NoteSearch({
-    onSearch
-}) {
+function NoteSearch({ onSearch }) {
+  function onChangeSearchQuery(event) {
+    onSearch({
+      query: event.target.value,
+    });
+  }
 
-    function onChangeSearchQuery(event){
-        onSearch({
-            query: event.target.value
-        })
-    }
-
-    return (
-        <div className="form__group my-1">
-            <input onKeyUp={onChangeSearchQuery} onChange={onChangeSearchQuery} type="text" placeholder='Search Your Diary' className='form__input'/>
-        </div>
-    )
+  return (
+    <div className="form__group my-1">
+      <input
+        onKeyUp={onChangeSearchQuery}
+        onChange={onChangeSearchQuery}
+        type="text"
+        placeholder="Search Your Diary"
+        className="form__input"
+      />
+    </div>
+  );
 }
 
-export default NoteSearch
+NoteSearch.propTypes = {
+    onSearch: PropTypes.func.isRequired
+}
+
+export default NoteSearch;

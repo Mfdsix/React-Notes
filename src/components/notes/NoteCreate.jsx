@@ -1,8 +1,9 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export default class NoteCreate extends React.Component {
+class NoteCreate extends React.Component {
   constructor(props) {
     super(props);
     this.submitNote = props.submitNote;
@@ -90,8 +91,7 @@ export default class NoteCreate extends React.Component {
     this.submitNote({
       title: this.state.title,
       body: this.state.body,
-    })
-
+    });
   }
   render() {
     return (
@@ -144,3 +144,9 @@ export default class NoteCreate extends React.Component {
     );
   }
 }
+
+NoteCreate.propTypes = {
+  submitNote: PropTypes.func.isRequired
+};
+
+export default NoteCreate;

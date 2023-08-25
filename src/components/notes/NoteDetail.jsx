@@ -1,9 +1,9 @@
 import React from "react";
 import { convertDate } from "../../utils/date";
 import NoteDetailAction from "./NoteDetailAction";
+import PropTypes from "prop-types";
 
-export default function NoteDetail({ onDelete, onArchive, note }) {
-
+function NoteDetail({ onDelete, onArchive, note }) {
   return (
     <>
       <div>
@@ -27,3 +27,11 @@ export default function NoteDetail({ onDelete, onArchive, note }) {
     </>
   );
 }
+
+NoteDetail.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+  note: PropTypes.object.isRequired,
+};
+
+export default NoteDetail;
