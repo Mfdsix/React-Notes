@@ -10,19 +10,13 @@ import PageNotFound from "./pages/PageNotFound";
 function Router() {
   return (
     <>
-      <AppHeader />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new" element={<Add />} />
+        <Route path="/:id" element={<Detail />} />
 
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/new" element={<Add />} />
-          <Route path="/:id" element={<Detail />} />
-
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </main>
-
-      <AppFooter />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
     </>
   );
 }

@@ -133,10 +133,10 @@ class NoteCreate extends React.Component {
 
           <div className="form__action flex__end">
             <Link to="/" className="btn btn__cancel mr-1">
-              Kembali
+              Back
             </Link>
             <button type="submit" className="btn btn__submit">
-              Simpan
+              Save
             </button>
           </div>
         </form>

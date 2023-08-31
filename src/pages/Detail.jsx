@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import NoteDetail from "../components/notes/NoteDetail";
 import { deleteNote, getNoteById, toggleArchiveStatus } from "../data/notes";
+
+import UserLayout from "../components/layouts/User";
+import NoteDetail from "../components/notes/NoteDetail";
 import PageNotFound from "./PageNotFound";
 
 export default function Detail() {
@@ -15,24 +17,32 @@ export default function Detail() {
     let deleteConfirm = confirm("Move this to TRASH, continue ?");
     if (deleteConfirm) {
       deleteNote(note.id);
-      navigate('/');
+      navigate("/");
     }
   }
 
   function onArchive(e) {
     e.preventDefault();
 
-    let archiveConfirm = confirm(note.archived ? "Remove from ARCHIVE, continue ?" : "Archieve this NOTE, continue ?");
+    let archiveConfirm = confirm(
+      note.archived
+        ? "Remove from ARCHIVE, continue ?"
+        : "Archieve this NOTE, continue ?"
+    );
     if (archiveConfirm) {
       toggleArchiveStatus(note.id);
-      navigate('/');
+      navigate("/");
     }
   }
 
   return (
     <>
-      { note && <NoteDetail onDelete={onDelete} onArchive={onArchive} note={note} /> }
-      { !note && <PageNotFound/> }
+      {note && (
+        <UserLayout>
+          <NoteDetail onDelete={onDelete} onArchive={onArchive} note={note} />
+        </UserLayout>
+      )}
+      {!note && <PageNotFound />}
     </>
   );
 }

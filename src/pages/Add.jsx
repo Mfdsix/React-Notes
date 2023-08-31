@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { addNote } from "../data/notes";
+
+import UserLayout from "../components/layouts/User";
 import NoteCreate from "../components/notes/NoteCreate";
 
-export default function Add(){
+export default function Add() {
   const navigate = useNavigate();
 
   function submitNote(note) {
@@ -11,7 +13,11 @@ export default function Add(){
     navigate("/");
   }
 
-  return <>
-    <NoteCreate submitNote={submitNote}/>
-  </>
+  return (
+    <>
+      <UserLayout>
+        <NoteCreate submitNote={submitNote} />
+      </UserLayout>
+    </>
+  );
 }

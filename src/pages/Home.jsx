@@ -1,5 +1,7 @@
 import React from "react";
 
+import UserLayout from "../components/layouts/User";
+
 import NoteList from "../components/notes/NoteList";
 import NoteAddButton from "../components/notes/NoteAddButton";
 import NoteSearch from "../components/notes/NoteSearch";
@@ -28,22 +30,26 @@ class Home extends React.Component {
     return this.state.notes.filter(
       (note) =>
         (!this.state.searchQuery ||
-        note.title.toLowerCase().includes(this.state.searchQuery.toLowerCase()))
-        && note.archived == isArchived
+          note.title
+            .toLowerCase()
+            .includes(this.state.searchQuery.toLowerCase())) &&
+        note.archived == isArchived
     );
   }
 
   render() {
     return (
       <>
-        <NoteAddButton />
-        <NoteSearch onSearch={this.onSearchSubmit} />
-        <NoteList notes={this.search()} />
+        <UserLayout>
+          <NoteAddButton />
+          <NoteSearch onSearch={this.onSearchSubmit} />
+          <NoteList notes={this.search()} />
 
-        <div className="my-1">
-          <h4>Archived Notes</h4>
-          <NoteList notes={this.search(true)} />
-        </div>
+          <div className="my-1">
+            <h4>Archived Notes</h4>
+            <NoteList notes={this.search(true)} />
+          </div>
+        </UserLayout>
       </>
     );
   }
