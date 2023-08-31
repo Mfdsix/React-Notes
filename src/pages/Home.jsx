@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import UserLayout from "../components/layouts/User";
 
@@ -6,53 +6,57 @@ import NoteList from "../components/notes/NoteList";
 import NoteAddButton from "../components/notes/NoteAddButton";
 import NoteSearch from "../components/notes/NoteSearch";
 
-import { getNotes } from "../data/notes";
+import {NoteRequest} from "../data/api/dicoding-notes";
+import { useSearchParams } from "react-router-dom";
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
+function Home() {
+  const [notes, setNotes] = useState([]);
+  const [archived, setArchived] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(() => {
+    return searchParams.get('q') || ''
+  });
 
-    this.state = {
-      notes: getNotes(),
-      searchQuery: null,
-    };
-
-    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+  const search = (isArchived = false) => {
+    return (isArchived ? archived : notes).filter((note) => !query || note.title.toLowerCase().includes(query.toLowerCase()))
   }
 
-  onSearchSubmit({ query }) {
-    this.setState({
-      searchQuery: query,
+  const onSearchSubmit = ({ query: searchQuery }) => {
+    setSearchParams({
+      q: searchQuery
     });
+    setQuery(searchQuery);
   }
 
-  search(isArchived = false) {
-    return this.state.notes.filter(
-      (note) =>
-        (!this.state.searchQuery ||
-          note.title
-            .toLowerCase()
-            .includes(this.state.searchQuery.toLowerCase())) &&
-        note.archived == isArchived
-    );
-  }
+  useEffect(() => {
+    const getNotes = async () => {
+      const {error, data} = await NoteRequest.getAll();
+      if(!error) setNotes(data);
+    }
 
-  render() {
-    return (
-      <>
-        <UserLayout>
-          <NoteAddButton />
-          <NoteSearch onSearch={this.onSearchSubmit} />
-          <NoteList notes={this.search()} />
+    const getArchived = async () => {
+      const {error, data} = await NoteRequest.getArchived();
+      if(!error) setArchived(data);
+    }
 
-          <div className="my-1">
-            <h4>Archived Notes</h4>
-            <NoteList notes={this.search(true)} />
-          </div>
-        </UserLayout>
-      </>
-    );
-  }
+    getNotes();
+    getArchived();
+  }, []);
+
+  return (
+    <>
+      <UserLayout>
+        <NoteAddButton />
+        <NoteSearch defaultQuery={query} onSearch={onSearchSubmit} />
+        <NoteList notes={search()} />
+
+        <div className="my-1">
+          <h4 className="note__section__title">Archived Notes</h4>
+          <NoteList notes={search(true)} />
+        </div>
+      </UserLayout>
+    </>
+  );
 }
 
 export default Home;

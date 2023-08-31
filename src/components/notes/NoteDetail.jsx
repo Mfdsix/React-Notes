@@ -3,7 +3,7 @@ import { convertDate } from "../../utils/date";
 import NoteDetailAction from "./NoteDetailAction";
 import PropTypes from "prop-types";
 
-function NoteDetail({ onDelete, onArchive, note }) {
+function NoteDetail({ note }) {
   return (
     <>
       <div>
@@ -20,8 +20,7 @@ function NoteDetail({ onDelete, onArchive, note }) {
         </div>
         <NoteDetailAction
           isArchived={note.archived}
-          onDelete={onDelete}
-          onArchive={onArchive}
+          noteId={note.id}
         />
       </div>
     </>
@@ -29,8 +28,6 @@ function NoteDetail({ onDelete, onArchive, note }) {
 }
 
 NoteDetail.propTypes = {
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
   note: PropTypes.object.isRequired,
 };
 

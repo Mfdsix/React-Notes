@@ -11,7 +11,7 @@ function NoteListAction({ noteId }) {
 }
 
 NoteListAction.propTypes = {
-    noteId: PropTypes.number.isRequired
+    noteId: PropTypes.string.isRequired
 }
 
 export default NoteListAction;

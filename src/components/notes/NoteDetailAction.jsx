@@ -1,7 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import {
+  NoteRequest
+} from "../../data/api/dicoding-notes";
 
-function NoteDetailAction({ isArchived, onDelete, onArchive }) {
+function NoteDetailAction({ noteId, isArchived }) {
+  const navigate = useNavigate();
+  const [actionLoading, setActionLoading] = useState(false);
+
+  async function onDelete(e) {
+    e.preventDefault();
+
+    let deleteConfirm = confirm("Move this to TRASH, continue ?");
+    if (deleteConfirm) {
+      setActionLoading(true);
+      
+      const {error, message} = await NoteRequest.remove(noteId);
+      setActionLoading(false);
+
+      if(error) return alert(message);
+      navigate("/");
+    }
+  }
+
+  async function onArchive(e) {
+    e.preventDefault();
+
+    let archiveConfirm = confirm(
+      isArchived
+        ? "Remove from ARCHIVE, continue ?"
+        : "Archieve this NOTE, continue ?"
+    );
+    if (archiveConfirm) {
+      
+      const {error, message} = isArchived ? await NoteRequest.unArchive(noteId) : await NoteRequest.archive(noteId);
+      setActionLoading(false);
+      
+      if(error) return alert(message);
+      navigate("/");
+    }
+  }
+
   return (
     <div className="note__action flex__end">
       <button
@@ -19,9 +59,8 @@ function NoteDetailAction({ isArchived, onDelete, onArchive }) {
 }
 
 NoteDetailAction.propTypes = {
-    onDelete: PropTypes.func.isRequired,
-    onArchive: PropTypes.func.isRequired,
-    isArchived: PropTypes.bool.isRequired,
-}
+  noteId: PropTypes.string.isRequired,
+  isArchived: PropTypes.bool.isRequired,
+};
 
 export default NoteDetailAction;

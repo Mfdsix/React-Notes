@@ -1,3 +1,7 @@
+.note__section__title{
+    color: var(--primary-color);
+}
+
 .note__list{
     display: flex;
     flex-wrap: wrap;
@@ -7,11 +11,13 @@
 .note__list .note__item{
     width: 48%;
     padding: 20px;
-    border: 1px solid #ccc;
     border-radius: 10px;
     margin: 10px 0;
     position: relative;
+    background-color: var(--primary-color);
+    color: var(--body-bg-color);
 }
+
 
 .note__list .note__item .note__date{
     font-size: 14px;
@@ -19,7 +25,6 @@
 }
 
 .note__list .note__item .note__body{
-    color: #333;
     margin-top: 10px;
 }
 

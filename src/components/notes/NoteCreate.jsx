@@ -1,12 +1,15 @@
 import React from "react";
 
+import { FaSpinner } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { NoteRequest } from "../../data/api/dicoding-notes";
 
 class NoteCreate extends React.Component {
   constructor(props) {
     super(props);
-    this.submitNote = props.submitNote;
+    this.afterSubmitNote = props.afterSubmitNote;
 
     this.state = {
       title: null,
@@ -14,6 +17,7 @@ class NoteCreate extends React.Component {
       errorTitle: null,
       errorBody: null,
       titleCharLeft: 50,
+      formLoading: false,
     };
 
     this.onTitleChange = this.onTitleChange.bind(this);
@@ -66,11 +70,12 @@ class NoteCreate extends React.Component {
     });
   }
 
-  onFormSubmit(event) {
+  async onFormSubmit(event) {
     event.preventDefault();
     this.setState({
       errorTitle: null,
       errorBody: null,
+      formLoading: true,
     });
 
     const { title, body } = this.state;
@@ -88,11 +93,23 @@ class NoteCreate extends React.Component {
       return;
     }
 
-    this.submitNote({
+    const { error, message } = await NoteRequest.create({
       title: this.state.title,
       body: this.state.body,
     });
+
+    this.setState({
+      formLoading: false,
+    });
+    if (error) {
+      return this.setState({
+        errorTitle: message,
+      });
+    }
+
+    this.afterSubmitNote();
   }
+
   render() {
     return (
       <>
@@ -135,8 +152,12 @@ class NoteCreate extends React.Component {
             <Link to="/" className="btn btn__cancel mr-1">
               Back
             </Link>
-            <button type="submit" className="btn btn__submit">
-              Save
+            <button
+              disabled={this.state.formLoading}
+              type="submit"
+              className="btn btn__submit"
+            >
+              {this.state.formLoading ? <FaSpinner /> : "Save"}
             </button>
           </div>
         </form>
@@ -146,7 +167,7 @@ class NoteCreate extends React.Component {
 }
 
 NoteCreate.propTypes = {
-  submitNote: PropTypes.func.isRequired
+  afterSubmitNote: PropTypes.func.isRequired,
 };
 
 export default NoteCreate;

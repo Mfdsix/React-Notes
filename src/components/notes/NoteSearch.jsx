@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function NoteSearch({ onSearch }) {
+function NoteSearch({ onSearch, defaultQuery }) {
   function onChangeSearchQuery(event) {
     onSearch({
       query: event.target.value,
@@ -14,6 +14,7 @@ function NoteSearch({ onSearch }) {
         onKeyUp={onChangeSearchQuery}
         onChange={onChangeSearchQuery}
         type="text"
+        value={defaultQuery}
         placeholder="Search Your Diary"
         className="form__input"
       />
@@ -22,7 +23,8 @@ function NoteSearch({ onSearch }) {
 }
 
 NoteSearch.propTypes = {
-    onSearch: PropTypes.func.isRequired
-}
+  defaultQuery: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default NoteSearch;

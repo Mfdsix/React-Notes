@@ -1,48 +1,50 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { deleteNote, getNoteById, toggleArchiveStatus } from "../../data/notes";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import UserLayout from "../../components/layouts/User";
 import NoteDetail from "../../components/notes/NoteDetail";
 import PageNotFound from "../PageNotFound";
+import { FaSpinner } from "react-icons/fa";
+
+import { NoteRequest } from "../../data/api/dicoding-notes";
 
 export default function Detail() {
   const { id } = useParams();
-  const note = getNoteById(id);
-  const navigate = useNavigate();
 
-  function onDelete(e) {
-    e.preventDefault();
+  const [note, setNote] = useState(null);
+  const [noteLoading, setNoteLoading] = useState(true);
 
-    let deleteConfirm = confirm("Move this to TRASH, continue ?");
-    if (deleteConfirm) {
-      deleteNote(note.id);
-      navigate("/");
-    }
-  }
+  useEffect(() => {
+    const getNote = async () => {
+      setNoteLoading(true);
+      const { error, data } = await NoteRequest.getById(id);
+      setNoteLoading(false);
+      if (!error) setNote(data);
+    };
 
-  function onArchive(e) {
-    e.preventDefault();
+    getNote();
 
-    let archiveConfirm = confirm(
-      note.archived
-        ? "Remove from ARCHIVE, continue ?"
-        : "Archieve this NOTE, continue ?"
-    );
-    if (archiveConfirm) {
-      toggleArchiveStatus(note.id);
-      navigate("/");
-    }
-  }
+    return () => {
+      setNoteLoading(false);
+      setNote(null);
+    };
+  }, [id]);
 
   return (
     <>
-      {note && (
+      {noteLoading && (
         <UserLayout>
-          <NoteDetail onDelete={onDelete} onArchive={onArchive} note={note} />
+          <div className="text-center">
+            <FaSpinner size={48}/>
+          </div>
         </UserLayout>
       )}
-      {!note && <PageNotFound />}
+      {!noteLoading && !note && <PageNotFound />}
+      {note && (
+        <UserLayout>
+          <NoteDetail note={note} />
+        </UserLayout>
+      )}
     </>
   );
 }

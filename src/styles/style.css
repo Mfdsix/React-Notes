@@ -1,3 +1,15 @@
+:root {
+  --primary-color: #333;
+  --bg-color: #ccc;
+  --body-bg-color: #fff;
+}
+ 
+[data-theme='dark'] {
+  --primary-color: #eee;
+  --bg-color: #666;
+  --body-bg-color: #333;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -20,12 +32,12 @@
 
 a{
   text-decoration: none;
-  color: #333;
+  color: var(--primary-color);
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #ccc;
+  background-color: var(--bg-color);
 }
 
 input::placeholder, textarea::placeholder {
@@ -37,13 +49,13 @@ header{
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: var(--body-bg-color);
   min-height: 60px;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid var(--primary-color);
 }
 
 header .header__brand h1{
@@ -72,7 +84,7 @@ main{
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: var(--body-bg-color);
   min-height: 85vh;
   padding: 20px;
 }
@@ -81,7 +93,7 @@ footer{
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  background-color: #333;
+  background-color: var(--primary-color);
   min-height: 60px;
   display: flex;
   justify-content: center;
@@ -93,4 +105,9 @@ button:disabled{
   background-color: #aaa !important;
   color: #333;
   cursor: not-allowed;
+}
+
+.text-center{
+  display: flex;
+  justify-content: center;
 }

@@ -32,11 +32,12 @@
     background-color: red;
 }
 .btn.btn__submit{
-    background-color: #333;
+    background-color: var(--primary-color);
+    color: var(--body-bg-color);
 }
 .btn.btn__transparent{
     background-color: transparent;
-    color: #333;
+    color: var(--primary-color);
 }
 
 .form__invalid__feedback{

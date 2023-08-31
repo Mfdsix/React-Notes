@@ -75,6 +75,10 @@ class App extends React.Component {
     });
   }
 
+  componentDidUpdate(){
+    document.documentElement.setAttribute('data-theme', this.state.themeContext.theme);
+  }
+
   render() {
     if (this.state.initializing) {
       return null;
