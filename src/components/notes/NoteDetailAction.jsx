@@ -45,13 +45,14 @@ function NoteDetailAction({ noteId, isArchived }) {
   return (
     <div className="note__action flex__end">
       <button
+      disabled={actionLoading}
         onClick={onArchive}
         className="btn btn__submit mr-1"
         type="button"
       >
         {isArchived ? "Cancel Archive" : "Archive"}
       </button>
-      <button onClick={onDelete} className="btn btn__cancel" type="button">
+      <button disabled={actionLoading} onClick={onDelete} className="btn btn__cancel" type="button">
         Delete
       </button>
     </div>
