@@ -1,8 +1,10 @@
 import React from "react";
 import Router from "./router";
 
-import { ThemeProvider } from './data/context/ThemeContext';
-import { LangProvider } from './data/context/LangContext';
+import { ThemeProvider } from "./data/context/ThemeContext";
+import { LangProvider } from "./data/context/LangContext";
+import { UserProvider } from "./data/context/UserContext";
+import { AuthRequest } from "./data/api/dicoding-notes";
 
 const LOCAL_THEME_KEY = "LOCAL_THEME";
 const LOCAL_LANG_KEY = "LOCAL_LANG";
@@ -12,7 +14,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      authedUser: null,
       initializing: true,
       themeContext: {
         theme: localStorage.getItem(LOCAL_THEME_KEY) || "light",
@@ -33,7 +34,7 @@ class App extends React.Component {
       langContext: {
         lang: localStorage.getItem(LOCAL_LANG_KEY) || "id",
         toggleLang: (newLang) => {
-          this.setState(() => {
+          this.setState((prevState) => {
             localStorage.setItem(LOCAL_LANG_KEY, newLang);
             return {
               langContext: {
@@ -44,15 +45,34 @@ class App extends React.Component {
           });
         },
       },
+      userContext: {
+        user: null,
+        setUser: (user) => {
+          this.setState((prevState) => {
+            return {
+              userContext: {
+                ...prevState.userContext,
+                user,
+              },
+            };
+          });
+        },
+      },
     };
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
+    const { error, data } = await AuthRequest.profile();
+
+    if (!error) {
+      this.state.userContext.setUser(data);
+    }
+
     this.setState(() => {
-        return {
-            initializing: false
-        }
-    })
+      return {
+        initializing: false,
+      };
+    });
   }
 
   render() {
@@ -63,7 +83,9 @@ class App extends React.Component {
     return (
       <ThemeProvider value={this.state.themeContext}>
         <LangProvider value={this.state.langContext}>
-          <Router />
+          <UserProvider value={this.state.userContext}>
+            <Router />
+          </UserProvider>
         </LangProvider>
       </ThemeProvider>
     );

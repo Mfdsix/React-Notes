@@ -36,6 +36,7 @@
 }
 .btn.btn__transparent{
     background-color: transparent;
+    color: #333;
 }
 
 .form__invalid__feedback{

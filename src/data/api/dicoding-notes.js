@@ -2,7 +2,13 @@ import { fetchUrl, fetchUrlWithToken } from "./http";
 
 const requestWrapper = async (request) => {
     try{
-        return await request();
+        const response = await request;
+        const { status, message, data } = await response.json();
+        return {
+            error: status !== 'success',
+            message,
+            data
+        }
     }catch(e){
         return {
             error: true,

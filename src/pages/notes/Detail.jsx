@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteNote, getNoteById, toggleArchiveStatus } from "../data/notes";
+import { deleteNote, getNoteById, toggleArchiveStatus } from "../../data/notes";
 
-import UserLayout from "../components/layouts/User";
-import NoteDetail from "../components/notes/NoteDetail";
-import PageNotFound from "./PageNotFound";
+import UserLayout from "../../components/layouts/User";
+import NoteDetail from "../../components/notes/NoteDetail";
+import PageNotFound from "../PageNotFound";
 
 export default function Detail() {
   const { id } = useParams();
